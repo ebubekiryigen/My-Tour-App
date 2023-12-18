@@ -1,3 +1,4 @@
+import '../styles/globals.css'
 import Navbar from "./component/navbar"
 
 const RootLayout = ({children} : {children: React.ReactNode}) => {

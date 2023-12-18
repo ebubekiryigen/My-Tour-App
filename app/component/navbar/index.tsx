@@ -6,7 +6,7 @@ import User from "./user"
 
 const Navbar = () => {
     return(
-        <div>
+        <div className="flex items-center justify-between h-16 bg-gray-100 px-7">
             <Logo />
             <Menu />
             <User />
