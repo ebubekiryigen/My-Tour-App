@@ -1,8 +1,8 @@
 'use client'
 
 import Logo from "./logo"
-import Menu from "./menu"
-import User from "./user"
+import Menu from "./menu/"
+import User from "./user/"
 
 const Navbar = () => {
     return(

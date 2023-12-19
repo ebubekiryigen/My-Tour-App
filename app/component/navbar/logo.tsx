@@ -2,7 +2,7 @@
 
 const Logo = () => {
     return(
-        <div>Logo</div>
+        <div className="text-4xl">My Tour</div>
     )
 }
 
