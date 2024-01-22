@@ -29,6 +29,10 @@ const Modal:React.FC<ModalProps> = ({
         onSubmit();
     }
 
+    if(!isOpen) {
+        return false
+    }
+
     return(
         <div className="bg-black bg-opacity-70 fixed flex items-center justify-center w-full h-full">
             <div className="bg-white rounded-lg p-5 w-1/2">
