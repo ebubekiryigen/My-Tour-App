@@ -5,6 +5,8 @@ import Modal from "."
 import Input from "../inputs";
 import Button from "../buttons";
 import {FcGoogle} from "react-icons/fc"
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { modalBtnClck } from "@/app/redux/slice/modalSlice";
 
 const RegisterModal = () => {
     const {register, handleSubmit, watch, formState:{errors}} = useForm<FieldValues>({
@@ -17,6 +19,9 @@ const RegisterModal = () => {
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log(data)
     }
+
+    const {registerModal} = useAppSelector(state => state.modal)
+    const dispatch = useAppDispatch()
 
     const bodyElement = (
         <div>
@@ -50,7 +55,7 @@ const RegisterModal = () => {
     const footerElement = (
         <div className="mt-5">
             <Button
-            label="Google İle Giriş yap"
+            label="sign up with google"
             outline
             icon={FcGoogle}
             onSubmit={()=>{onSubmit}} />
@@ -59,7 +64,12 @@ const RegisterModal = () => {
 
     return(
         <div>
-            <Modal bodyElement={bodyElement} footerElement={footerElement} isOpen onSubmit={handleSubmit(onSubmit)} onClose={()=>{}} label='Register' title='Register'/>
+            <Modal
+                bodyElement={bodyElement}
+                footerElement={footerElement}
+                isOpen={registerModal}
+                onSubmit={handleSubmit(onSubmit)}
+                onClose={()=>{dispatch(modalBtnClck('register'))}} label='Register' title='Register'/>
         </div>
     )
 }
