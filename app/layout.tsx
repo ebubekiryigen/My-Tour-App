@@ -7,6 +7,7 @@ import RegisterModal from './component/modals/RegisterModal'
 import LoginModal from './component/modals/LoginModal'
 import ToastProvider from './provider/ToastProvider'
 import getCurrentUser from './actions/getCurrentUser'
+import ListingModal from './component/modals/ListingModal'
 
 const newFont = Nunito({
     subsets: ['latin']
@@ -21,6 +22,7 @@ export default async function RootLayout({children} : {children: React.ReactNode
                 <ReduxProvider>
                     <MountedClient>
                         <ToastProvider />
+                        <ListingModal />
                         <RegisterModal />
                         <LoginModal />
                         <Navbar user={user} />

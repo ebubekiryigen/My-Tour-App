@@ -15,12 +15,14 @@ const UserN = ({user}:{ user: User | any | undefined}) => {
 
     return(
         <div onClick={() => setOpenMenu(!openMenu)} className='reletaive flex items-center gap-2 cursor-pointer'>
+            <div className='text-gray-500 text-sm'>{user?.name}</div>
             <GiHamburgerMenu size={25} />
             <Image
-             src = {"https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
+             src = {user?.image || "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
              alt = 'user profile photo'
              width = {40}
              height = {40}
+             className='rounded-full'
             />
 
             {
@@ -31,7 +33,7 @@ const UserN = ({user}:{ user: User | any | undefined}) => {
                                 <>
                                     <UserMenuItem
                                         name="Create Listing"
-                                        onClick={() => {}}
+                                        onClick={() => {dispatch(modalBtnClck('listing'))}}
                                     />
                                     <UserMenuItem
                                         name="Sign Out"
