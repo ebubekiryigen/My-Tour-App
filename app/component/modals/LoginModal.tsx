@@ -67,7 +67,7 @@ const LoginModal = () => {
             label="sign in with google"
             outline
             icon={FcGoogle}
-            onSubmit={()=>{onSubmit}} />
+            onSubmit={()=>{signIn('google')}} />
         </div>
     );
 

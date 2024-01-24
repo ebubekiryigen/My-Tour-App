@@ -6,7 +6,6 @@ import Menu from "./menu/"
 import UserN from "./user/"
 
 const Navbar = ({user}:{ user: User | any | undefined}) => {
-    console.log(user)
     return(
         <div className="flex items-center justify-between h-16 bg-gray-100 px-7">
             <Logo />
