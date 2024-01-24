@@ -1,26 +1,44 @@
 'use client'
 
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
-import Modal from "."
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Modal from ".";
 import Input from "../inputs";
 import Button from "../buttons";
 import {FcGoogle} from "react-icons/fc"
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { modalBtnClck } from "@/app/redux/slice/modalSlice";
+import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { getSession } from "@/app/actions/getCurrentUser";
 
 const LoginModal = () => {
+    const router = useRouter();
+    const dispatch = useAppDispatch()
+    const {loginModal} = useAppSelector(state => state.modal)
     const {register, handleSubmit, watch, formState:{errors}} = useForm<FieldValues>({
         defaultValues:{
             email:"",
             password:""
         }
     });
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data)
-    }
 
-    const {loginModal} = useAppSelector(state => state.modal)
-    const dispatch = useAppDispatch()
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        signIn('credentials' , {
+            ...data,
+            redirect: false
+        })
+        .then((callback) => {
+            if(callback?.ok){
+                dispatch(modalBtnClck('login'));
+                router.refresh();
+                toast.success('Login process successful');
+            }
+            if(callback?.error){
+                toast.error('Email or password is incorrect!!!');
+            }
+        })
+    };
 
     const bodyElement = (
         <div>
@@ -41,7 +59,7 @@ const LoginModal = () => {
           required
          />
         </div>
-    )
+    );
 
     const footerElement = (
         <div className="mt-5">
@@ -51,7 +69,7 @@ const LoginModal = () => {
             icon={FcGoogle}
             onSubmit={()=>{onSubmit}} />
         </div>
-    )
+    );
 
     return(
         <div>

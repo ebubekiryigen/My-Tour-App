@@ -7,6 +7,8 @@ import Button from "../buttons";
 import {FcGoogle} from "react-icons/fc"
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { modalBtnClck } from "@/app/redux/slice/modalSlice";
+import { toast } from "react-toastify";
+import axios from "axios"
 
 const RegisterModal = () => {
     const {register, handleSubmit, watch, formState:{errors}} = useForm<FieldValues>({
@@ -16,12 +18,19 @@ const RegisterModal = () => {
             password:""
         }
     });
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data)
-    }
-
     const {registerModal} = useAppSelector(state => state.modal)
     const dispatch = useAppDispatch()
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        axios.post('/api/register', data)
+        .then(()=>{
+            dispatch(modalBtnClck('register'))
+            toast.success('user registration successful')
+        })
+        .catch((err: any)=>{
+            toast.error('User registration failed !!!')
+        })
+    }
+
 
     const bodyElement = (
         <div>
