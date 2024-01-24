@@ -5,8 +5,10 @@ import { useState } from 'react'
 import UserMenuItem from './item'
 import { useAppDispatch } from '@/app/redux/hooks'
 import { modalBtnClck } from '@/app/redux/slice/modalSlice'
+import { User } from '@prisma/client'
+import { signOut } from 'next-auth/react'
 
-const User = () => {
+const UserN = ({user}:{ user: User | any | undefined}) => {
 
     const [openMenu, setOpenMenu] = useState(false)
     const dispatch = useAppDispatch()
@@ -24,14 +26,32 @@ const User = () => {
             {
                 openMenu && (
                     <div className='absolute bg-white shadow-lg shadow-gray-500 w-[9.375rem] top-16 right-0'>
-                        <UserMenuItem
-                            name="Sign In"
-                            onClick={() => {dispatch(modalBtnClck('login'))}}
-                        />
-                        <UserMenuItem
-                            name="Sign Up"
-                            onClick={() => {dispatch(modalBtnClck('register'))}}
-                        />
+                        {
+                            user ? (
+                                <>
+                                    <UserMenuItem
+                                        name="Create Listing"
+                                        onClick={() => {}}
+                                    />
+                                    <UserMenuItem
+                                        name="Sign Out"
+                                        onClick={() => {signOut()}}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <UserMenuItem
+                                        name="Sign In"
+                                        onClick={() => {dispatch(modalBtnClck('login'))}}
+                                    />
+                                    <UserMenuItem
+                                        name="Sign Up"
+                                        onClick={() => {dispatch(modalBtnClck('register'))}}
+                                    />
+                                </>
+                            )
+                        }
+
                     </div>
                 )
             }
@@ -39,4 +59,4 @@ const User = () => {
     )
 }
 
-export default User
+export default UserN
