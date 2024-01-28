@@ -1,18 +1,30 @@
 import prisma from '@/app/lib/prismadb'
 import Item from './component/item';
+import getCurrentUser from './actions/getCurrentUser';
 
 const Page = async() => {
-    const listings = await prisma.listing.findMany({
-        orderBy : {
-            createdAt: "desc"
-        }
-    })
+    const user = await getCurrentUser();
+    let listings = []
+    if (user) {
+        listings = await prisma.listing.findMany({
+            where: {
+                userId: user.id,
+            },
+            orderBy : {
+                createdAt: "desc"
+            }
+        })
+    }
 
     return (
         <div className='flex flex-wrap gap-5 m-4'>
-            {listings?.map((list, i) => (
+            {user ? listings?.map((list:any, i:any) => (
                   <Item item={list} key={i}  />
-            ))}
+            )):
+            <div className='w-full text-xl flex justify-center items-center'>
+                <span>Please log in</span>
+            </div>
+            }
         </div>
     )
 }

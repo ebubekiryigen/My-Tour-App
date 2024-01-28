@@ -4,10 +4,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from ".";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
 import { modalBtnClck } from "@/app/redux/slice/modalSlice";
-import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { getSession } from "@/app/actions/getCurrentUser";
 import CategorySelect from "../listing/CategorySelect";
 import CountrySelect from "../listing/CountrySelect";
 import CounterSelect from "../listing/CounterSelect";
@@ -22,12 +20,13 @@ const ListingModal = () => {
     const dispatch = useAppDispatch()
     const {listingModal} = useAppSelector(state => state.modal)
     const [imgsSrc, setImgsSrc] = useState([])
-    const { register, handleSubmit, watch,setValue,reset, formState: { errors }} = useForm<FieldValues>({
+    const { register, handleSubmit, watch, setValue, reset, formState: { errors }} = useForm<FieldValues>({
         defaultValues:{
             imageSrc:'',
             category:'',
             roomCount:1,
-            location: null
+            location: null,
+            cat:''
         }
     });
 
@@ -76,14 +75,18 @@ const ListingModal = () => {
         <>
         <div className="flex items-center gap-10 mb-5">
             {
-                menu.map((cat,i) => (
-                    <CategorySelect
+                menu.map((c,i) => (
+                <CategorySelect
                     key={i}
-                    name={cat.name}
-                    icon= {cat.icon}
-                    onClick={(category) => {customSetValue('category', category)}}
-                    selected = {category == cat.name}
-                    />
+                    name={c.name}
+                    slug={c.slug}
+                    icon={c.icon}
+                    onClick={(name, slug) => {
+                        customSetValue('category', name);
+                        customSetValue('cat', slug);
+                    }}
+                    selected={category === c.name}
+                />
                 ))
             }
         </div>
