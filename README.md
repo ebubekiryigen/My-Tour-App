@@ -26,3 +26,13 @@ yarn dev
 pnpm run dev
 ```
 
+
+## Project Requirements
+
+To set up the project, follow the steps below:
+
+1. Create an `.env` file in the project's root directory.
+2. Add the following headers to your `.env` file:
+    · `DATABASE_URL`: Your MongoDB database connection.
+    · `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`: Information obtained from the Google server.
+    · `NEXTAUTH_SECRET`: A unique encryption key of your choice.
