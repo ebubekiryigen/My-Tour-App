@@ -7,6 +7,8 @@ type ItemProps = {
         locationValue: string;
         roomCount: number;
         createdAt: Date;
+        date:Date,
+        price:String
     };
 }
 
@@ -31,12 +33,15 @@ const Item:React.FC<ItemProps> = ({
                     <span className='font-bold'>Country</span> :  {item.locationValue}
                 </div>
                 <div className='text-l tracking-wider m-2'>
+                    <span className='font-bold'>price</span> :  {item.price}
+                </div>
+                <div className='text-l tracking-wider m-2'>
                     <span className='font-bold'>Number of people</span> : {item.roomCount}
                 </div>
             </div>
         </div>
         <div className='m-2 flex justify-between'>
-            <div className='font-bold'>{new Date(item.createdAt).toLocaleDateString()}</div>
+            <div className='font-bold'>{new Date(item.date).toLocaleDateString()}</div>
             <div><button className='underline'>Remove</button></div>
         </div>
     </div>
