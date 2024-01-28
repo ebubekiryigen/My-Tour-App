@@ -1,7 +1,13 @@
 import prisma from '@/app/lib/prismadb'
-import Item from './component/item';
+import Item from '../component/item';
 
-const Page = async() => {
+type ItemProps = {
+    params: {
+        category: string
+    }
+}
+
+const Category:React.FC<ItemProps> = async ({params}) => {
     const listings = await prisma.listing.findMany({
         orderBy : {
             createdAt: "desc"
@@ -17,4 +23,4 @@ const Page = async() => {
     )
 }
 
-export default Page
+export default Category
