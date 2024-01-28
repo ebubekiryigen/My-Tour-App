@@ -2,7 +2,7 @@
 
 const Logo = () => {
     return(
-        <div className="text-4xl">My Tour</div>
+        <a href="/" title="mytourapp"><div className="text-4xl">My Tour</div></a>
     )
 }
 

@@ -1,14 +1,21 @@
 import prisma from '@/app/lib/prismadb'
-import Item from './component/item';
-import getCurrentUser from './actions/getCurrentUser';
+import Item from '../component/item';
+import getCurrentUser from '../actions/getCurrentUser';
 
-const Page = async() => {
+type ItemProps = {
+    params: {
+        category: string
+    }
+}
+
+const Category:React.FC<ItemProps> = async ({params}) => {
     const user = await getCurrentUser();
-    let listings = []
+    let listings = [];
     if (user) {
         listings = await prisma.listing.findMany({
             where: {
                 userId: user.id,
+                cat: params.category,
             },
             orderBy : {
                 createdAt: "desc"
@@ -29,4 +36,4 @@ const Page = async() => {
     )
 }
 
-export default Page
+export default Category
