@@ -13,6 +13,7 @@ import { menu } from "../navbar/menu";
 import Image from "next/image";
 import { useState } from "react";
 import axios from "axios";
+import Input from "../inputs";
 
 
 const ListingModal = () => {
@@ -26,7 +27,9 @@ const ListingModal = () => {
             category:'',
             roomCount:1,
             location: null,
-            cat:''
+            cat:'',
+            date:'',
+            price:1
         }
     });
 
@@ -38,7 +41,7 @@ const ListingModal = () => {
         })
     }
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = (data:any) => {
         axios.post('/api/listing', data)
         .then(() => {
             toast.success('Addition successful')
@@ -56,6 +59,8 @@ const ListingModal = () => {
     const roomCount = watch('roomCount');
     const imageSrc = watch('imageSrc');
     const location = watch('location');
+    const date = watch('date');
+    const price = watch('price');
 
     const imageSelectFunc = (e: any) => {
         for (const file of e.target.files) {
@@ -102,6 +107,28 @@ const ListingModal = () => {
             description = "Select the number of people you will organize the holiday for"
             value={roomCount}
             onChange = {(value) => {customSetValue('roomCount', value)} }
+            />
+        </div>
+        <div className="mb-5">
+            <Input
+                id="price"
+                type="number"
+                placeholder="Price"
+                value={price}
+                register={register}
+                errors={errors}
+                required
+            />
+        </div>
+        <div className="mb-5">
+            <Input
+                id="date"
+                type="date"
+                placeholder="date"
+                value={date}
+                register={register}
+                errors={errors}
+                required
             />
         </div>
         <input className="mb-4" multiple type="file" name="file" onChange={val => imageSelectFunc(val)} />

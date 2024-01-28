@@ -9,6 +9,7 @@ type InputProps = {
     required: boolean;
     register:UseFormRegister<FieldValues>;
     errors: FieldErrors;
+    value?:any;
 }
 const Input:React.FC<InputProps> = ({
     id,
@@ -16,7 +17,8 @@ const Input:React.FC<InputProps> = ({
     placeholder,
     required,
     register,
-    errors
+    errors,
+    value,
 }) => {
   return (
     <div className="mb-3">
@@ -25,7 +27,9 @@ const Input:React.FC<InputProps> = ({
         {...register(id, {required})}
         type={type}
         placeholder={placeholder}
-        id={id} />
+        id={id}
+        value={value}
+        />
     </div>
   )
 }

@@ -10,7 +10,6 @@ import { modalBtnClck } from "@/app/redux/slice/modalSlice";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { getSession } from "@/app/actions/getCurrentUser";
 
 const LoginModal = () => {
     const router = useRouter();
